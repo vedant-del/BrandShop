@@ -4,8 +4,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useDispatch } from 'react-redux';
 import { add_to_cart } from '../../Store/Slise';
 
-const Home = () => {
+const Home = (props) => {
   const[popularMovies, setPopularMovies] = useState([])
+  const[page, setPage] = useState(1)
+  const[totalResults, setTotalResults] = useState(0)
 
     const componentDidMount =async () => {
       let url = `https://fakestoreapi.com/products`;
@@ -13,6 +15,7 @@ const Home = () => {
         let parsedData = await data.json()
         setPopularMovies(parsedData)
         console.log(popularMovies)
+        setTotalResults(parsedData.totalResults)
     }
     useEffect(()=>{
       componentDidMount();
@@ -21,16 +24,16 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const handleAdd = (item) => {
-        console.log(item,"itemmmm");
+        // console.log(item,"itemmmm");
         dispatch(add_to_cart(item))
     }
 
     const handlePrevClick =(()=>{
-
+          setPage(page - 1)
     })
 
     const handleNextClick =(()=>{
-
+      setPage(page + 1)
     })
 
   return (
@@ -42,7 +45,7 @@ const Home = () => {
         {popularMovies?.map((element)=> {
            return <div className=' col-xl-3 col-lg-6  col-md-6 col-sm-12 col-12' key={element.id}>
 
-            <div className='my-3'>
+      <div className='my-3'>
         <div className="card">
   <img src={element.image} className="card-img-top" width="100%" height="355px" alt="..." />
   <div className="card-body bg-light">
@@ -62,10 +65,10 @@ const Home = () => {
         </div>
         <div className='container d-flex justify-content-between'>
         <button
-        //  disabled={page<=1}
+         disabled={page<=1}
           type="button" className="btn btn-dark" onClick={handlePrevClick}>&larr; Previous</button>
         <button 
-        // disabled={page + 1 > Math.ceil(totalResults/props.pageSize)}
+        disabled={page + 1 > Math.ceil(totalResults/props.pageSize)}
          type="button" className="btn btn-dark" onClick={handleNextClick}>Next &rarr;</button>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 const Hightolow = () => {
     const[popularMovies, setPopularMovies] = useState([])
-    // const[price, setPrice] = useState()
+    const[price, setPrice] = useState()
 
     const componentDidMount = async () => {
         let url = "https://fakestoreapi.com/products";
@@ -22,17 +22,17 @@ const Hightolow = () => {
             dispatch(add_to_cart(item))
         })
 
-        // const total = () => {
-        //   let price = 0;
-        //   popularMovies.map((el, k)=> {
-        //     price = el.price + price;
-        //   })
-        //   setPrice(price);
-        // }
+        const total = () => {
+          let price = 0;
+          popularMovies.map((el, k)=> {
+            price = el.price + price;
+          })
+          setPrice(price);
+        }
         
-        // useEffect(()=> {
-        //   total();
-        // },[total])
+        useEffect(()=> {
+          total();
+        },[total])
 
   return (
     <>
@@ -55,12 +55,12 @@ const Hightolow = () => {
             <span className="tx-white">Add T</span>
             <span className="tx-black">o Cart</span>
           </button>
-  </div>
- </div>
-</div>
-        </div>
-        })}
-        </div>
+            </div>
+              </div>
+                </div>
+                 </div>
+                   })}
+              </div>
       </div>
     </>
   )
