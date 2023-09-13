@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux'
 
 const Hightolow = () => {
     const[popularMovies, setPopularMovies] = useState([])
-    const[price, setPrice] = useState()
+    // const[price, setPrice] = useState()
 
     const componentDidMount = async () => {
-        let url = `https://fakestoreapi.com/products brandShop`;
-          let data = await fetch(url);
+        let url = "https://fakestoreapi.com/products";
+          let data = await fetch(url)
           let parsedData = await data.json()
           setPopularMovies(parsedData)
         }
@@ -22,17 +22,17 @@ const Hightolow = () => {
             dispatch(add_to_cart(item))
         })
 
-        const total = () => {
-          let price = 0;
-          popularMovies.map((el, k)=> {
-            price = el.price + price;
-          })
-          setPrice(price);
-        }
+        // const total = () => {
+        //   let price = 0;
+        //   popularMovies.map((el, k)=> {
+        //     price = el.price + price;
+        //   })
+        //   setPrice(price);
+        // }
         
-        useEffect(()=> {
-          total();
-        },[total])
+        // useEffect(()=> {
+        //   total();
+        // },[total])
 
   return (
     <>
@@ -49,11 +49,11 @@ const Hightolow = () => {
         <div className="card-body bg-light">
             <h5 className="card-title">{element.title?element.title.slice(0, 15):" "}</h5>
             <p className="card-text">{element.description?element.description.slice(0, 88):" "}</p>
-            <p className="card-text">Price - {price}</p>
+            <p className="card-text">Price - {element.price}</p>
             <a href={element.title?element.title.slice(0, 15):" "} target='_blank' className="btn btn-sm btn-dark">Read More</a>
           <button className="btn bt-box" onClick={() => handleAdd(element)}>
             <span className="tx-white">Add T</span>
-            <span className="tx-black">o Cart</span> 
+            <span className="tx-black">o Cart</span>
           </button>
   </div>
  </div>
